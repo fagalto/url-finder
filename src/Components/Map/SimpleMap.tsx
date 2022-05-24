@@ -18,6 +18,12 @@ const SimpleMap = (props: { coords?: gpsCoords[], zoom?: number }) => {
     height: "100%",
   };
 
+    const defaultZoom = 5;
+
+    const points = props.coords !== undefined ? props.coords : [center];
+  const zoom = props.zoom !== undefined ? props.zoom : defaultZoom;
+    const allPoints = points.map((point, i) => <Marker position={point} key={i} />);
+
     const { isLoaded } = useJsApiLoader({
       id: "google-map-script",
       googleMapsApiKey: "AIzaSyD - SbMR4NB0_MnA_Xh81NHWbuwj2ZnBzwM",
@@ -35,18 +41,14 @@ const SimpleMap = (props: { coords?: gpsCoords[], zoom?: number }) => {
       setMap(undefined);
     }, []);
 
-  const defaultZoom = 9
-    
-  const point = props.coords !== undefined ? props.coords : [center]
-  const zoom = props.zoom !== undefined ? props.zoom : defaultZoom
-  const allPoints = point.map((point, i) => <Marker position={point} key={i}/>)
+
 
     return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={zoom}
         onLoad={onLoad}
+        zoom={zoom}
         onUnmount={onUnmount}>
         {allPoints}
       </GoogleMap>

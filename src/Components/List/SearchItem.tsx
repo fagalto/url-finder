@@ -6,7 +6,15 @@ const SearchItem = <T,>(props: { item: T }) => {
     typeof props.item === "number" || typeof props.item === "string" ? props.item : "invalid data";
 
   return (
-    <ListItem>
+    <ListItem sx={[
+        {
+          "&:hover": {
+            cursor: "pointer",
+            color: "primary.main",
+          },
+        },
+        { display: "flex", alignItems: "flex-start", textDecoration: "none" },
+      ]}>
       <ListItemText primary={displayedData} />
     </ListItem>
   );

@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-const userIP = atom({
+export const userIP = atom<string>({
   key: "userIP",
   default: "141.136.43.133",
 });

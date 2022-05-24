@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box/Box";
 import List from "@mui/material/List";
+import Typography from "@mui/material/Typography/Typography";
 import NoItems from "./NoItems";
 import SearchItem from "./SearchItem";
 
@@ -14,6 +15,7 @@ const SearchList = <T,>(props: { list?: T[] }) => {
 
   const displayedList = (
     <Box sx={{ height: "100vh" }}>
+      <Typography variant = "h6">Your Search History</Typography>
       <List>{listItems}</List>
     </Box>
   );
