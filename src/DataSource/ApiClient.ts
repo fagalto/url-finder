@@ -1,10 +1,8 @@
-//
-///
+import { pointInfo } from "../Components/PointInfo";
+import { getData } from "./FetchMethods";
 
-import { getData } from "./FetchMethods"
-
-const API_1_BASE_URL = 'https://ipgeolocation.abstractapi.com/v1/'
-const API_1_KEY = '6c864f4617104dad83739170b994278b'
+const API_1_BASE_URL = "https://ipgeolocation.abstractapi.com/v1/";
+const API_1_KEY = "6c864f4617104dad83739170b994278b";
 
 const sampleResponse = {
   ip_address: "166.171.248.255",
@@ -52,16 +50,27 @@ const sampleResponse = {
   },
 };
 
-type API_1_RESPONSE = typeof sampleResponse
+type API_1_RESPONSE = typeof sampleResponse;
 
-export const fetchIPData = async (ip: string) => {
-    return await getData(`${API_1_BASE_URL}?api_key=${API_1_KEY}&ip_address=${ip}`)
-      .then((res) => res.json())
-      .then((json: API_1_RESPONSE) => json)
-      .catch((err) => {
-        throw new Error("Problem with fetching data" + err);
-      });
-    
-    
-}
-
+const fetchIPData = async (ip: string) => {
+  return await getData(`${API_1_BASE_URL}?api_key=${API_1_KEY}&ip_address=${ip}`)
+    .then((res) => res.json())
+    .then((json: API_1_RESPONSE) => json)
+    .catch((err) => {
+      throw new Error("Problem with fetching data" + err);
+    });
+};
+export const MappedData = async (ip: string) => {
+  let geoLocationData: pointInfo;
+  const response = await fetchIPData(ip).then((res) => {
+    geoLocationData.city = res.city;
+    geoLocationData.country = res.country;
+    geoLocationData.country_code = res.country_code;
+    geoLocationData.flag = res.flag.png;
+    geoLocationData.lat = res.latitude;
+      geoLocationData.lng = res.longitude;
+      geoLocationData.region = res.region;
+      return geoLocationData
+  });
+    return response
+};

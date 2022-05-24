@@ -17,7 +17,7 @@ export interface pointInfo {
   region: string;
   country: string;
   country_code: string;
-  flag: flagType;
+  flag: string;
 }
 
 const PointInfo = (props?: { info?: pointInfo }) => {
