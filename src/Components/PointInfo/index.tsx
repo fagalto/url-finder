@@ -22,7 +22,7 @@ export interface pointInfo {
   flag: string;
 }
 
-const PointInfo = (props?: { info?: pointInfo, error?:error }) => {
+const PointInfo = (props?: { info?: pointInfo, error: error }) => {
   return props?.info !== undefined ? (
     <PointDetails info={props.info} error={props.error} />
   ) : (

@@ -12,7 +12,6 @@ const SearchedIpView = () => {
   const gpsCoords: gpsCoords = _searchedGeoDetails.content
     ? { lat: _searchedGeoDetails.content.lat, lng: _searchedGeoDetails.content.lng }
     : { lat: 0, lng: 0 };
-
   return (
     <IpView
       position={gpsCoords}

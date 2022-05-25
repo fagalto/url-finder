@@ -83,11 +83,11 @@ const fetchIPData = async (ip: string) => {
   return await getData<API_1_RESPONSE>(`${API_1_BASE_URL}?api_key=${API_1_KEY}&ip_address=${ip}`)
     .then((res) => res.data)
     .catch((err) => {
-      throw new Error("Problem with fetching data" + err);
+      throw new Error("Problem with fetching data");
     });
 };
 export const MappedData = async (ip: string) => {
-  let geoLocationData: pointInfo = Object.assign({}, defaultPoint);
+  let geoLocationData: pointInfo= Object.assign({}, defaultPoint);
   const response = await limiter
     .schedule(() => fetchIPData(ip))
     .then((res) => {
@@ -101,7 +101,7 @@ export const MappedData = async (ip: string) => {
       return geoLocationData;
     })
     .catch((err) => {
-      throw new Error("Problem with mapping data" + err);
+      throw new Error("Problem with fetching data");
     });
   return response;
 };
@@ -110,7 +110,7 @@ export const getOwnUrl = async () => {
   return await getData<OWN_ADDRESS>(url)
     .then((res) => res.data.ipAddress)
     .catch((err) => {
-      throw new Error("Problem with mapping data" + err);
+      throw new Error("Problem with getting Your IP");
     });
 };
 export const getIpFromHost = async (hostname: string) => {
@@ -118,6 +118,6 @@ export const getIpFromHost = async (hostname: string) => {
   return await getData<DNS_RESPONSE>(url)
     .then((res) => res.data.Answer[0].data) //know that'shortcut
     .catch((err) => {
-      throw new Error("Could not resolve DNS" + err);
+      throw new Error("Could not resolve"+ hostname);
     });
 };

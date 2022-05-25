@@ -9,6 +9,7 @@ import { searchedList } from "../../State/searchedList";
 import { searchedIP } from "../../State/searchedIP";
 
 import { useRecoilState, useRecoilValue } from "recoil";
+import Alert from "../Alert";
 
 
 const MainView = () => {
@@ -39,6 +40,7 @@ const [_searchedIP, setSearchedIP] = useRecoilState(searchedIP);
           </Stack>
         </Box>
       </Box>
+      <Alert />
     </Container>
   );
   return view;

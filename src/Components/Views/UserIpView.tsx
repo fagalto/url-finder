@@ -5,12 +5,15 @@ import Loadable from "../../State/Loadables/factory";
 import { userGeoDetails } from "../../State/userGeoDetails";
 import { gpsCoords } from "../Map";
 
+
 const UserIpView = () => {
   const _userIp = Loadable(userIP);
   const _userDetails = Loadable(userGeoDetails);
+
   const gpsCoords: gpsCoords = _userDetails.content
     ? { lat: _userDetails.content.lat, lng: _userDetails.content.lng }
     : { lat: 0, lng: 0 };
+
 
   return (
     <IpView
