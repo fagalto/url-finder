@@ -18,7 +18,6 @@ const IpView = (props: {
   const pos = position ? [position] : undefined;
   const load = loading ? "loading" : "";
 
-
   return (
     <Stack direction="column">
       <Typography variant="h6" color="text.secondary">

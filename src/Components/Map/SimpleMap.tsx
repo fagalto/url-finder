@@ -18,7 +18,7 @@ const SimpleMap = (props: { coords?: gpsCoords[], zoom?: number }) => {
     height: "100%",
   };
 
-    const defaultZoom = 5;
+    const defaultZoom = 10;
 
     const points = props.coords !== undefined ? props.coords : [center];
   const zoom = props.zoom !== undefined ? props.zoom : defaultZoom;
@@ -32,8 +32,9 @@ const SimpleMap = (props: { coords?: gpsCoords[], zoom?: number }) => {
     const [map, setMap] = React.useState <google.maps.Map>();
 
     const onLoad = React.useCallback(function callback(map: google.maps.Map) {
-      const bounds = new window.google.maps.LatLngBounds(center);
-      map.fitBounds(bounds);
+      const bounds = new window.google.maps.LatLngBounds(points[0]);
+    
+      map.setZoom(zoom)
       setMap(map);
     }, []);
 
@@ -46,7 +47,7 @@ const SimpleMap = (props: { coords?: gpsCoords[], zoom?: number }) => {
     return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={points[0]}
         onLoad={onLoad}
         zoom={zoom}
         onUnmount={onUnmount}>
