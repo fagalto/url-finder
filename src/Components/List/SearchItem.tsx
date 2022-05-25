@@ -18,12 +18,17 @@ const SearchItem = <T,>(props: { item: T; itemClick: (value: string) => void }) 
             color: "primary.main",
           },
         },
-        { display: "flex", alignItems: "flex-start", textDecoration: "none" },
+        {
+          display: "flex",
+          alignItems: "middle",
+          textDecoration: "none",
+          color: "text.secondary",
+        },
       ]}>
       <ListItemIcon>
         <LinkIcon />
       </ListItemIcon>
-      <ListItemText primary={displayedData} />
+      <ListItemText primary={displayedData} color="text.secondary" />
     </ListItemButton>
   );
 };

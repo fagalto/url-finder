@@ -2,11 +2,13 @@ import { errorMessage } from "../../State/error";
 import { useRecoilState } from "recoil";
 
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+import Slide, { SlideProps } from "@mui/material/Slide";
 import Alert from "@mui/material/Alert/Alert";
+
+function SlideTransition(props: SlideProps) {
+  return <Slide {...props} direction="up" />;
+}
 
 export default function AlertComponent() {
   const [open, setOpen] = React.useState(false);
@@ -21,7 +23,8 @@ export default function AlertComponent() {
       return;
     }
 
-    setOpen(false);
+      setOpen(false);
+      setError("");
   };
 
   const action = (
@@ -33,8 +36,9 @@ export default function AlertComponent() {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={6000}
+          autoHideDuration={4000}
       onClose={handleClose}
+      TransitionComponent={SlideTransition}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
       {action}
     </Snackbar>

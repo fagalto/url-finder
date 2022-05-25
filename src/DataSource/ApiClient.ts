@@ -118,6 +118,6 @@ export const getIpFromHost = async (hostname: string) => {
   return await getData<DNS_RESPONSE>(url)
     .then((res) => res.data.Answer[0].data) //know that'shortcut
     .catch((err) => {
-      throw new Error("Could not resolve"+ hostname);
+      throw new Error("Could not resolve: "+ hostname);
     });
 };

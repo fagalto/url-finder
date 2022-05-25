@@ -2,8 +2,6 @@
 
 import NoPointData from "./NoPointData";
 import PointDetails from "./PointDetails";
-import { defaultPoint } from "../../State/userGeoDetails";
-import { error } from "../../State/Loadables/factory";
 
 const flag = {
   emoji: "🇺🇸",
@@ -22,9 +20,9 @@ export interface pointInfo {
   flag: string;
 }
 
-const PointInfo = (props?: { info?: pointInfo, error: error }) => {
+const PointInfo = (props?: { info?: pointInfo }) => {
   return props?.info !== undefined ? (
-    <PointDetails info={props.info} error={props.error} />
+    <PointDetails info={props.info} />
   ) : (
     <NoPointData />
   );

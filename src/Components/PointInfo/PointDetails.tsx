@@ -8,18 +8,8 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import { pointInfo } from ".";
 import { error } from "../../State/Loadables/factory";
-const PointDetails = (props: { info: pointInfo; error: error }) => {
+const PointDetails = (props: { info: pointInfo }) => {
   const { lat, lng, city, region, country, flag, country_code } = props.info;
-  const err = props.error? props.error.message : "";
-
-  const _error =
-    err.length > 0 ? (
-      <Typography variant="subtitle2" sx={{ color: red[500] }}>
-        {`Error: ${props.error}`}
-      </Typography>
-    ) : (
-      <></>
-    );
   const info = (
     <Card>
       <CardHeader
@@ -44,7 +34,6 @@ const PointDetails = (props: { info: pointInfo; error: error }) => {
         <Typography variant="subtitle2" color="text.secondary">
           {`Country Code: ${country_code}`}
         </Typography>
-        {_error}
       </CardContent>
     </Card>
   );

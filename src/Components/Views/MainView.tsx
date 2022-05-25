@@ -27,14 +27,14 @@ const [_searchedIP, setSearchedIP] = useRecoilState(searchedIP);
   }
 
   const view = (
-    <Container maxWidth="xl" sx={{ marginTop: "0px" }}>
+    <Container maxWidth="xl" sx={{ marginTop: "0px", height: "95vh" }}>
       <Box sx={{ display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
-        <Box sx={{ width: "30vw" }}>
+        <Box sx={{ width: "30vw", height: "100%" }}>
           <List list={list} itemClick={clickHandle} />
         </Box>
-        <Box sx={{ width: "60vw", height: "100vh" }}>
+        <Box sx={{ width: "60vw", height: "100%"}}>
           <Stack direction="column" spacing={2}>
-            <UserIpView   />
+            <UserIpView />
             <SearchBar searchFcn={searchHandle} />
             <SearchedIpView />
           </Stack>

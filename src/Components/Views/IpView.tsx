@@ -34,7 +34,7 @@ const IpView = (props: {
           <Map positions={pos} />
         </Box>
         <Box sx={{ width: "50%" }}>
-          <PointInfo info={info} error={error} />
+          <PointInfo info={info} />
         </Box>
       </Box>
     </Stack>
