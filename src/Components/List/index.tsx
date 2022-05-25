@@ -14,11 +14,13 @@ const SearchList = <T,>(props: { list?: T[],itemClick:(value: string) => void })
     );
 
   const displayedList = (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <Typography variant="h6" color="text.secondary">
         Your Search History
       </Typography>
-      <List>{listItems}</List>
+      <Box sx={{ height: "99%", flex: 1, overflowY: "auto" }}>
+        <List>{listItems}</List>
+      </Box>
     </Box>
   );
 

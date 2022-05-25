@@ -7,24 +7,34 @@ import UserIpView from "./UserIpView";
 import SearchedIpView from "./SearchedIpView";
 import { searchedList } from "../../State/searchedList";
 import { searchedIP } from "../../State/searchedIP";
+import { errorMessage } from "../../State/error";
+import * as utils from "../../Utils/ipVerification";
 
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Alert from "../Alert";
-
 
 const MainView = () => {
   const [list, setList] = useRecoilState(searchedList);
-const [_searchedIP, setSearchedIP] = useRecoilState(searchedIP);
-
+  const [_searchedIP, setSearchedIP] = useRecoilState(searchedIP);
+  const setError = useSetRecoilState(errorMessage);
 
   const searchHandle = (value: string) => {
-    const newSearchList = [...list, value];
-    setList(newSearchList);
-    setSearchedIP(value);
+    if (!utils.isHostname(value) && !utils.isCoorectIPAddres(value)) {
+      setError("Incorrect IP Address");
+    }
+    else {
+      //last search goes ont op of list
+
+      const newSearchList = [value, ...list];
+      if (value.length) {
+        setList(newSearchList);
+        setSearchedIP(value);
+      }
+    }
   };
   const clickHandle = (value: string) => {
     setSearchedIP(value);
-  }
+  };
 
   const view = (
     <Container maxWidth="xl" sx={{ marginTop: "0px", height: "95vh" }}>
@@ -32,7 +42,7 @@ const [_searchedIP, setSearchedIP] = useRecoilState(searchedIP);
         <Box sx={{ width: "30vw", height: "100%" }}>
           <List list={list} itemClick={clickHandle} />
         </Box>
-        <Box sx={{ width: "60vw", height: "100%"}}>
+        <Box sx={{ width: "60vw", height: "100%" }}>
           <Stack direction="column" spacing={2}>
             <UserIpView />
             <SearchBar searchFcn={searchHandle} />

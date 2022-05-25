@@ -18,13 +18,15 @@ export interface pointInfo {
   country: string;
   country_code: string;
   flag: string;
+
 }
 
-const PointInfo = (props?: { info?: pointInfo }) => {
-  return props?.info !== undefined ? (
+const PointInfo = (props: { info?: pointInfo, loading: boolean }) => {
+  console.log("loading is", props.loading)
+  return props.info !== undefined ? (
     <PointDetails info={props.info} />
   ) : (
-    <NoPointData />
+    <NoPointData loading={props.loading} />
   );
 };
 

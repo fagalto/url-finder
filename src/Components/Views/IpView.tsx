@@ -8,33 +8,50 @@ import Typography from "@mui/material/Typography/Typography";
 import { useRecoilState } from "recoil";
 import { errorMessage } from "../../State/error";
 import { useEffect } from "react";
-
+import Loading from "../Loading";
 const IpView = (props: {
   position?: gpsCoords;
   info?: pointInfo;
-  loading?: boolean;
+  loading: boolean;
   error: error;
   title: string;
 }) => {
   //use User State and info
-  const { position, info, title, loading, error } = props;
+  const { position, info, title, error, loading } = props;
   const pos = position ? [position] : undefined;
-  const load = loading ? "loading" : "";
   const [_error, setError] = useRecoilState(errorMessage);
   useEffect(() => {
     error.message.length > 0 && setError(error.message);
   }, [error]);
+  const load = loading ? (
+    <Box sx={{ width: "15px", height: "15px"}}>
+      <Loading />
+    </Box>
+  ) : (
+    <></>
+  );
   return (
     <Stack direction="column">
-      <Typography variant="h6" color="text.secondary">
-        {title}
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          alignItems: "center",
+          gap:"10px"
+        }}>
+        <Typography variant="h6" color="text.secondary">
+          {title}
+        </Typography>
+
+        {load}
+      </Box>
       <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
         <Box sx={{ width: "50%" }}>
           <Map positions={pos} />
         </Box>
         <Box sx={{ width: "50%" }}>
-          <PointInfo info={info} />
+          <PointInfo info={info} loading />
         </Box>
       </Box>
     </Stack>

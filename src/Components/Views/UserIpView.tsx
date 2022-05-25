@@ -14,12 +14,11 @@ const UserIpView = () => {
     ? { lat: _userDetails.content.lat, lng: _userDetails.content.lng }
     : { lat: 0, lng: 0 };
 
-
   return (
     <IpView
       position={gpsCoords}
       info={_userDetails.content}
-      title="your IP Location"
+      title="Your IP Location"
       key={1}
       loading={_userDetails.isLoading}
       error={_userDetails.error}

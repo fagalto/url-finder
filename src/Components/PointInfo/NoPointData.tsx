@@ -4,11 +4,11 @@ import CardHeader from "@mui/material/CardHeader/CardHeader";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import { pointInfo } from ".";
-const NoPointData = () => { 
 
+const NoPointData = (props: { loading: boolean }) => {
   const info = (
     <Card>
       <CardHeader
@@ -19,7 +19,7 @@ const NoPointData = () => {
             UN
           </Avatar>
         }
-        title={`Country:Unknownn`}
+        title={`Country: Unknown`}
       />
       <CardContent>
         <Typography variant="subtitle2">{`Coordinates unknown`}</Typography>

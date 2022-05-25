@@ -18,7 +18,9 @@
     "@types/react-dom": "^18.0.5",
     "axios": "^0.27.2",
     "bottleneck": "^2.19.5",
+    "express": "^4.18.1",
     "google-map-react": "^2.1.10",
+    "ip-regex": "^5.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
@@ -27,7 +29,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
