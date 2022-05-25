@@ -1,6 +1,12 @@
-import { atom } from "recoil";
+import { selector } from "recoil";
+import * as DM from "../DataSource/DataManager";
 
-export const userIP = atom<string>({
+export const userIP = selector<string>({
   key: "userIP",
-  default: "141.136.43.133",
+  get: async ({ get }) => {
+
+    const details = DM.getOwnAddress();
+
+    return details;
+  },
 });

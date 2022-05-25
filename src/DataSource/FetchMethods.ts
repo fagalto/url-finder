@@ -1,9 +1,6 @@
-export async function getData(url: string) {
-  const response = fetch(url, {
-    headers: {
-      cache: "no-cache",
-    },
-    method: "GET",
-  });
+import axios, { AxiosError } from "axios"
+
+export async function getData<T>(url: string) {
+  const response = axios.get<T>(url)
   return response;
 }

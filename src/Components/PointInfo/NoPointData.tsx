@@ -2,22 +2,37 @@ import Avatar from "@mui/material/Avatar/Avatar";
 import Card from "@mui/material/Card/Card";
 import CardHeader from "@mui/material/CardHeader/CardHeader";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import { pointInfo } from ".";
-const NoPointData = (props: { title:string, subtitle:string }) => { 
+const NoPointData = () => { 
 
   const info = (
     <Card>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {"##"}
+          <Avatar
+            sx={{ bgcolor: red[500], width: "60px", height: "60px" }}
+            aria-label="country-flag">
+            UN
           </Avatar>
         }
-        title={props.title}
-        subheader={props.title}
+        title={`Country:Unknownn`}
       />
-      <CardMedia component="img" height="194" />
+      <CardContent>
+        <Typography variant="subtitle2">{`Coordinates unknown`}</Typography>
+        <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+          {`Region:`}
+        </Typography>
+        <Typography variant="subtitle2" color="text.secondary">
+          {`City:`}
+        </Typography>
+        <Typography variant="subtitle2" color="text.secondary">
+          {`Country Code: `}
+        </Typography>
+      </CardContent>
     </Card>
   );
 

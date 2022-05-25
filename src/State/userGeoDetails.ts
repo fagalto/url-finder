@@ -1,7 +1,9 @@
-import { atom } from "recoil";
+import { atom,selector } from "recoil";
 import { pointInfo } from "../Components/PointInfo";
+import { userIP } from "./userIp";
+import * as DM from "../DataSource/DataManager"
 
-const defaultPoint: pointInfo = {
+export let defaultPoint: pointInfo = {
   lat: 0,
   lng: 0,
   city: "no City",
@@ -12,7 +14,13 @@ const defaultPoint: pointInfo = {
 }
 
 
-export const userGeoDetails = atom<pointInfo>({
+export const userGeoDetails = selector<pointInfo>({
   key: "userGeoDetails",
-  default: defaultPoint,
+  get: async ({ get }) => {
+    const ip = get(userIP);
+
+    const details = DM.getIPGeoData(ip);
+
+    return details;
+  },
 });

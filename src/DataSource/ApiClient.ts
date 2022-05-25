@@ -1,5 +1,11 @@
 import { pointInfo } from "../Components/PointInfo";
+import { defaultPoint } from "../State/userGeoDetails";
 import { getData } from "./FetchMethods";
+import Bottleneck from "bottleneck";
+
+const limiter = new Bottleneck({
+  minTime: 2001, //free plan request per second limit
+});
 
 const API_1_BASE_URL = "https://ipgeolocation.abstractapi.com/v1/";
 const API_1_KEY = "6c864f4617104dad83739170b994278b";
@@ -49,28 +55,69 @@ const sampleResponse = {
     organization_name: "Service Provider Corporation",
   },
 };
+const sampleOwnAddress = {
+  ipAddress: "188.147.97.170",
+  continentCode: "EU",
+  continentName: "Europe",
+  countryCode: "PL",
+  countryName: "Poland",
+  stateProv: "Pomerania",
+  city: "Kobylnica",
+};
+const dnsSampleResponse = {
+  Status: 0,
+  TC: false,
+  RD: true,
+  RA: true,
+  AD: false,
+  CD: false,
+  Question: [{ name: "porannybiegacz.pl.", type: 1 }],
+  Answer: [{ name: "porannybiegacz.pl.", type: 1, TTL: 14211, data: "141.136.43.133" }],
+};
 
 type API_1_RESPONSE = typeof sampleResponse;
+type OWN_ADDRESS = typeof sampleOwnAddress;
+type DNS_RESPONSE = typeof dnsSampleResponse;
 
 const fetchIPData = async (ip: string) => {
-  return await getData(`${API_1_BASE_URL}?api_key=${API_1_KEY}&ip_address=${ip}`)
-    .then((res) => res.json())
-    .then((json: API_1_RESPONSE) => json)
+  return await getData<API_1_RESPONSE>(`${API_1_BASE_URL}?api_key=${API_1_KEY}&ip_address=${ip}`)
+    .then((res) => res.data)
     .catch((err) => {
       throw new Error("Problem with fetching data" + err);
     });
 };
 export const MappedData = async (ip: string) => {
-  let geoLocationData: pointInfo;
-  const response = await fetchIPData(ip).then((res) => {
-    geoLocationData.city = res.city;
-    geoLocationData.country = res.country;
-    geoLocationData.country_code = res.country_code;
-    geoLocationData.flag = res.flag.png;
-    geoLocationData.lat = res.latitude;
+  let geoLocationData: pointInfo = Object.assign({}, defaultPoint);
+  const response = await limiter
+    .schedule(() => fetchIPData(ip))
+    .then((res) => {
+      geoLocationData.city = res.city;
+      geoLocationData.country = res.country;
+      geoLocationData.country_code = res.country_code;
+      geoLocationData.flag = res.flag.png;
+      geoLocationData.lat = res.latitude;
       geoLocationData.lng = res.longitude;
       geoLocationData.region = res.region;
-      return geoLocationData
-  });
-    return response
+      return geoLocationData;
+    })
+    .catch((err) => {
+      throw new Error("Problem with mapping data" + err);
+    });
+  return response;
+};
+export const getOwnUrl = async () => {
+  const url = "https://api.db-ip.com/v2/free/self";
+  return await getData<OWN_ADDRESS>(url)
+    .then((res) => res.data.ipAddress)
+    .catch((err) => {
+      throw new Error("Problem with mapping data" + err);
+    });
+};
+export const getIpFromHost = async (hostname: string) => {
+  const url = `https://dns.google/resolve?name=${hostname}`;
+  return await getData<DNS_RESPONSE>(url)
+    .then((res) => res.data.Answer[0].data) //know that'shortcut
+    .catch((err) => {
+      throw new Error("Could not resolve DNS" + err);
+    });
 };
