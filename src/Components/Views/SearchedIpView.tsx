@@ -6,7 +6,7 @@ import { searchedGeoDetails } from "../../State/searchedGeoDetails";
 import { useRecoilState } from "recoil";
 import { gpsCoords } from "../Map";
 
-const SearchedIpView = () => {
+const SearchedIpView = (props: { height: string }) => {
   const [_searchedIP, setSearchedIP] = useRecoilState(searchedIP);
   const _searchedGeoDetails = Loadable(searchedGeoDetails);
   const gpsCoords: gpsCoords = _searchedGeoDetails.content
@@ -20,6 +20,7 @@ const SearchedIpView = () => {
       key={1}
       loading={_searchedGeoDetails.isLoading}
       error={_searchedGeoDetails.error}
+      height={props.height}
     />
   );
 };

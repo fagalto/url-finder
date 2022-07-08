@@ -1,8 +1,18 @@
 ## Available Scripts
 
-In the project directory, you can run:
+first 
+
+### `npm install`
+
+then
 
 ### `npm start`
+
+if you'd like to change something and build, run:
+
+### `npm build` 
+then
+### `npm serve-build`
 
 Runs the app in the development mode.
 

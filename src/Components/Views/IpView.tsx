@@ -15,9 +15,10 @@ const IpView = (props: {
   loading: boolean;
   error: error;
   title: string;
+  height: string;
 }) => {
   //use User State and info
-  const { position, info, title, error, loading } = props;
+  const { position, info, title, error, loading,height } = props;
   const pos = position ? [position] : undefined;
   const [_error, setError] = useRecoilState(errorMessage);
   useEffect(() => {
@@ -31,14 +32,14 @@ const IpView = (props: {
     <></>
   );
   return (
-    <Stack direction="column">
+    <Stack direction="column" sx={{ height: { height } }}>
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
           width: "100%",
           alignItems: "center",
-          gap:"10px"
+          gap: "10px",
         }}>
         <Typography variant="h6" color="text.secondary">
           {title}
@@ -46,7 +47,7 @@ const IpView = (props: {
 
         {load}
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
+      <Box sx={{ display: "flex", flexDirection: "row", width: "100%", height: "100%" }}>
         <Box sx={{ width: "50%" }}>
           <Map positions={pos} />
         </Box>

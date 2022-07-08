@@ -44,9 +44,9 @@ const MainView = () => {
         </Box>
         <Box sx={{ width: "60vw", height: "100%" }}>
           <Stack direction="column" spacing={2}>
-            <UserIpView />
+            <UserIpView height="45vh"/>
             <SearchBar searchFcn={searchHandle} />
-            <SearchedIpView />
+            <SearchedIpView height="45vh"/>
           </Stack>
         </Box>
       </Box>

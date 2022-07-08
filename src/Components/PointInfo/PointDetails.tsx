@@ -11,7 +11,7 @@ import { error } from "../../State/Loadables/factory";
 const PointDetails = (props: { info: pointInfo }) => {
   const { lat, lng, city, region, country, flag, country_code } = props.info;
   const info = (
-    <Card>
+    <Card sx={{height:"100%"}}>
       <CardHeader
         avatar={
           <Avatar
